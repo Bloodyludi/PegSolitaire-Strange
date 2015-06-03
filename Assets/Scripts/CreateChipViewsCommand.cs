@@ -18,7 +18,7 @@ class CreateChipViewsCommand : Command
     {
         foreach (var fieldModel in BoardModel.CurrentBoard)
         {
-            if (fieldModel.HasChip)
+            if (fieldModel != null && fieldModel.HasChip)
             {
                 var chipView = Pool.GetInstance();
 

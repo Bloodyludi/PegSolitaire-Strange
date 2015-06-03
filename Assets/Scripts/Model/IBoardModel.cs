@@ -2,11 +2,13 @@ using System.Collections.Generic;
 
 public interface IBoardModel
 {
-    List<IFieldModel> CurrentBoard
+    IFieldModel[] CurrentBoard
     {
         get;
         set;
     }
+
+    bool HasChipAtIndex(int index);
 }
 
 

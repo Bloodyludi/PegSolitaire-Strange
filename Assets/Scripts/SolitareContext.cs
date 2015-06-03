@@ -39,9 +39,12 @@ public class SolitareContext : MVCSContext
 
         injectionBinder.Bind<IBoardLayoutModel>().To<BoardLayoutModel>().ToSingleton();
         injectionBinder.Bind<IBoardModel>().To<BoardModel>().ToSingleton();
+        injectionBinder.Bind<IUserSelectionModel>().To<UserSelectionModel>().ToSingleton();
         injectionBinder.Bind<IFieldModel>().To<FieldModel>();
 
-        injectionBinder.Bind<ChipSelectionValidationResultSignal>().ToSingleton();
+        injectionBinder.Bind<FieldClickedSignal>().ToSingleton();
+
+//        injectionBinder.Bind<ChipSelectionValidationResultSignal>().ToSingleton();
 
         injectionBinder.Bind<IPool<GameObject>>()
 			.To<Pool<GameObject>>().ToSingleton().ToName(NamedInjections.FIELD_VIEW_POOL);
@@ -53,12 +56,15 @@ public class SolitareContext : MVCSContext
 			.To<CreateViewRootCommand>()
 			.To<CreateBoardFieldViewsCommand>()
 			.To<CreateChipViewsCommand>();
+
+        commandBinder.Bind<FieldClickedSignal>().To<PickClickReactionCommand>();
 		
-        commandBinder.Bind<ValidateChipSelectionSignal>().InSequence()
-			.To<ClearSelectionCommand>()
-			.To<ValidateChipSelectionCommand>();
+//        commandBinder.Bind<ValidateChipSelectionSignal>().InSequence()
+//			.To<ClearSelectionCommand>()
+//			.To<ValidateChipSelectionCommand>();
 
         mediationBinder.Bind<ChipView>().To<ChipMediator>();
+        mediationBinder.Bind<InputSurfaceView>().To<InputSurfaceMediator>();
     }
 
     protected override void postBindings()
@@ -76,6 +82,7 @@ public class SolitareContext : MVCSContext
 public enum NamedInjections
 {
     GAME_ROOT,
+    INPUT_SURFACE,
     FIELD_VIEW_POOL,
     CHIP_VIEW_POOL
 }

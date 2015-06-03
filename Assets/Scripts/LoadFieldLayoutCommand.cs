@@ -13,6 +13,8 @@ class LoadFieldLayoutCommand : Command
 
     public override void Execute()
     {
+        BoardModel.CurrentBoard = new IFieldModel[BoardLayoutModel.BoardLayout.Length];
+
         int index = 0;
         for (int y = 0; y < BoardLayoutModel.BoardDimension; y++)
         {
@@ -35,6 +37,6 @@ class LoadFieldLayoutCommand : Command
 
         field.Position = new Vector2(x, y);
         field.HasChip = hasChip;
-        BoardModel.CurrentBoard.Add(field);
+        BoardModel.CurrentBoard[y * BoardLayoutModel.BoardDimension + x] = field;
     }
 }

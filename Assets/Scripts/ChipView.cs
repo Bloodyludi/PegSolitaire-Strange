@@ -1,18 +1,10 @@
 using UnityEngine;
 using strange.extensions.mediation.impl;
-using strange.extensions.signal.impl;
 using System.Collections;
 
 public class ChipView : View
 {
     [SerializeField] Renderer mesh;
-
-    internal Signal clickSignal = new Signal();
-
-    void OnMouseDown()
-    {
-        clickSignal.Dispatch();
-    }
 
     public void Highlight(bool enabled)
     {

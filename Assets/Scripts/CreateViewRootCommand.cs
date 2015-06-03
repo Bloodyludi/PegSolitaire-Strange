@@ -16,6 +16,15 @@ class CreateViewRootCommand : Command
 
             injectionBinder.Bind<GameObject>().ToValue(rootGameObject).ToName(NamedInjections.GAME_ROOT);
         }
+
+        if (injectionBinder.GetBinding<GameObject>(NamedInjections.INPUT_SURFACE) == null)
+        {
+            GameObject inputSurfaceGameObject = new GameObject(NamedInjections.INPUT_SURFACE.ToString());
+            inputSurfaceGameObject.AddComponent<InputSurfaceView>();
+            inputSurfaceGameObject.transform.parent = contextView.transform;
+
+            injectionBinder.Bind<GameObject>().ToValue(inputSurfaceGameObject).ToName(NamedInjections.INPUT_SURFACE);
+        }
     }
 }
 

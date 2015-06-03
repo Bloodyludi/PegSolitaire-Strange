@@ -1,19 +1,13 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BoardModel : IBoardModel
 {
-    public List<IFieldModel> CurrentBoard
+    public IFieldModel[] CurrentBoard
     {
-        get
-        {
-            return currentBoard;
-        }
-        set
-        {
-            currentBoard = value;
-        }
+        get;
+        set;
     }
 
-    List<IFieldModel> currentBoard = new List<IFieldModel>();
+    public bool HasChipAtIndex(int index)
+    {
+        return CurrentBoard[index].HasChip;
+    }
 }

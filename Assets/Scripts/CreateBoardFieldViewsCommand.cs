@@ -17,9 +17,12 @@ class CreateBoardFieldViewsCommand : Command
     {
         foreach (var fieldModel in BoardModel.CurrentBoard)
         {
-            var fieldView = Pool.GetInstance();
-            fieldView.transform.position = fieldModel.Position;
-            fieldView.transform.parent = RootGameObject.transform;
+            if (fieldModel != null)
+            {
+                var fieldView = Pool.GetInstance();
+                fieldView.transform.position = fieldModel.Position;
+                fieldView.transform.parent = RootGameObject.transform;
+            }
         }
     }
 }

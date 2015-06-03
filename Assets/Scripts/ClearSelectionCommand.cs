@@ -4,17 +4,17 @@ using UnityEngine;
 
 class ClearSelectionCommand : Command
 {
-	[Inject(NamedInjections.GAME_ROOT)]
-	public GameObject rootGameObject{ get; set; }
+    [Inject(NamedInjections.GAME_ROOT)]
+    public GameObject rootGameObject{ get; set; }
 
-	public override void Execute()
-	{
-		var chipViews = rootGameObject.GetComponentsInChildren<ChipView> ();
-		foreach (var chipView in chipViews)
-		{
-			chipView.Highlight (false);
-		}
-	}
+    public override void Execute()
+    {
+        var chipViews = rootGameObject.GetComponentsInChildren<ChipView>();
+        foreach (var chipView in chipViews)
+        {
+            chipView.Highlight(false);
+        }
+    }
 }
 
 

@@ -3,6 +3,7 @@ using strange.extensions.context.impl;
 
 public interface IBoardLayoutModel
 {
-	int[] BoardLayout { get; }
-	int BoardDimension { get; }
+    int[] BoardLayout { get; }
+
+    int BoardDimension { get; }
 }

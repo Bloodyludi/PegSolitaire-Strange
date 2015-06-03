@@ -5,43 +5,45 @@ using System.Collections;
 
 public class ChipView : View
 {
-	[SerializeField] Renderer mesh;
+    [SerializeField] Renderer mesh;
 
-	internal Signal clickSignal = new Signal ();
+    internal Signal clickSignal = new Signal();
 
-	void OnMouseDown ()
-	{
-		clickSignal.Dispatch ();
-	}
+    void OnMouseDown()
+    {
+        clickSignal.Dispatch();
+    }
 
-	public void Highlight(bool enabled)
-	{
-		mesh.material.color = enabled ? Color.green : Color.white;
-	}
+    public void Highlight(bool enabled)
+    {
+        mesh.material.color = enabled ? Color.green : Color.white;
+    }
 
-	public void TriggerRestrictedAnimation()
-	{
-		StartCoroutine (RestrictedAnimation(0.6f, 0.2f));
-	}
+    public void TriggerRestrictedAnimation()
+    {
+        StartCoroutine(RestrictedAnimation(0.6f, 0.2f));
+    }
 
-	IEnumerator RestrictedAnimation(float duration, float blinkTime) {
-		while (duration > 0f) {
-			duration -= blinkTime;
+    IEnumerator RestrictedAnimation(float duration, float blinkTime)
+    {
+        while (duration > 0f)
+        {
+            duration -= blinkTime;
 
-			//toggle renderer
-			mesh.material.color = Color.red;
+            //toggle renderer
+            mesh.material.color = Color.red;
 
-			//wait for a bit
-			yield return new WaitForSeconds(blinkTime);
+            //wait for a bit
+            yield return new WaitForSeconds(blinkTime);
 
-			duration -= blinkTime;
+            duration -= blinkTime;
 
-			mesh.material.color = Color.white;
+            mesh.material.color = Color.white;
 
-			yield return new WaitForSeconds(blinkTime);
-		}
+            yield return new WaitForSeconds(blinkTime);
+        }
 
-		mesh.material.color = Color.white;
-	}
+        mesh.material.color = Color.white;
+    }
 
 }

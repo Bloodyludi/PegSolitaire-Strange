@@ -14,6 +14,9 @@ class CreateChipViewsCommand : Command
     [Inject]
     public IBoardModel BoardModel { get; set; }
 
+    [Inject]
+    public IIndexConverter IndexConverter { get; set; }
+
     public override void Execute()
     {
         foreach (var fieldModel in BoardModel.CurrentBoard)
@@ -22,7 +25,7 @@ class CreateChipViewsCommand : Command
             {
                 var chipView = Pool.GetInstance();
 
-                chipView.transform.position = fieldModel.Position;
+                chipView.transform.position = IndexConverter.IndexToPosition(fieldModel.Index);
                 chipView.transform.parent = RootGameObject.transform;
             }
         }

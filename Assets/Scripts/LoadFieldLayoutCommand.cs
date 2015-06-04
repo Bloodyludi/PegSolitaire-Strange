@@ -1,7 +1,4 @@
 using strange.extensions.command.impl;
-using strange.extensions.context.api;
-using UnityEngine;
-using strange.extensions.pool.api;
 
 class LoadFieldLayoutCommand : Command
 {
@@ -15,28 +12,23 @@ class LoadFieldLayoutCommand : Command
     {
         BoardModel.CurrentBoard = new IFieldModel[BoardLayoutModel.BoardLayout.Length];
 
-        int index = 0;
-        for (int y = 0; y < BoardLayoutModel.BoardDimension; y++)
+        for (int index = 0; index < BoardModel.CurrentBoard.Length; index++)
         {
-            for (int x = 0; x < BoardLayoutModel.BoardDimension; x++)
-            {
-                var fieldType = BoardLayoutModel.BoardLayout[index];
+            var fieldType = BoardLayoutModel.BoardLayout[index];
 
-                if (fieldType > 0 && fieldType <= 2)
-                {
-                    CreateField(x, y, fieldType != 1);
-                }
-                index++;
+            if (fieldType > 0 && fieldType <= 2)
+            {
+                CreateField(index, fieldType != 1);
             }
         }
     }
 
-    void CreateField(int x, int y, bool hasChip)
+    void CreateField(int index, bool hasChip)
     {
         var field = injectionBinder.GetInstance<IFieldModel>();
 
-        field.Position = new Vector2(x, y);
+        field.Index = index;
         field.HasChip = hasChip;
-        BoardModel.CurrentBoard[y * BoardLayoutModel.BoardDimension + x] = field;
+        BoardModel.CurrentBoard[index] = field;
     }
 }

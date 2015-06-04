@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FieldModel : IFieldModel
 {
-    public Vector2 Position
+    public int Index
     {
         get;
         set;

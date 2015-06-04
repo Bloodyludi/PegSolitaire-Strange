@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IFieldModel
 {
-    Vector2 Position
+    int Index
     {
         get;
         set;

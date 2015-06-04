@@ -36,21 +36,24 @@ public class SolitareContext : MVCSContext
     protected override void mapBindings()
     {
         base.mapBindings();
+        injectionBinder.Bind<IPool<GameObject>>()
+            .To<Pool<GameObject>>().ToSingleton().ToName(NamedInjections.FIELD_VIEW_POOL);
+        injectionBinder.Bind<IPool<GameObject>>()
+            .To<Pool<GameObject>>().ToSingleton().ToName(NamedInjections.CHIP_VIEW_POOL);
 
         injectionBinder.Bind<IBoardLayoutModel>().To<BoardLayoutModel>().ToSingleton();
         injectionBinder.Bind<IBoardModel>().To<BoardModel>().ToSingleton();
         injectionBinder.Bind<IUserSelectionModel>().To<UserSelectionModel>().ToSingleton();
         injectionBinder.Bind<IFieldModel>().To<FieldModel>();
 
+        injectionBinder.Bind<IMovementRules>().To<MovementRules>();
+        injectionBinder.Bind<IIndexConverter>().To<IndexConverter>();
+
         injectionBinder.Bind<FieldClickedSignal>().ToSingleton();
+        injectionBinder.Bind<SelectChipSignal>().ToSingleton();
+        injectionBinder.Bind<DeselectChipSignal>().ToSingleton();
+        injectionBinder.Bind<MoveChipSignal>().ToSingleton();
 
-//        injectionBinder.Bind<ChipSelectionValidationResultSignal>().ToSingleton();
-
-        injectionBinder.Bind<IPool<GameObject>>()
-			.To<Pool<GameObject>>().ToSingleton().ToName(NamedInjections.FIELD_VIEW_POOL);
-        injectionBinder.Bind<IPool<GameObject>>()
-			.To<Pool<GameObject>>().ToSingleton().ToName(NamedInjections.CHIP_VIEW_POOL);
-	
         commandBinder.Bind<StartSignal>().InSequence()
 			.To<LoadFieldLayoutCommand>()
 			.To<CreateViewRootCommand>()
@@ -58,10 +61,7 @@ public class SolitareContext : MVCSContext
 			.To<CreateChipViewsCommand>();
 
         commandBinder.Bind<FieldClickedSignal>().To<PickClickReactionCommand>();
-		
-//        commandBinder.Bind<ValidateChipSelectionSignal>().InSequence()
-//			.To<ClearSelectionCommand>()
-//			.To<ValidateChipSelectionCommand>();
+        commandBinder.Bind<MoveChipSignal>().InSequence().To<SwapChipPositionCommand>().To<DestroyChipInbetweenCommand>();
 
         mediationBinder.Bind<ChipView>().To<ChipMediator>();
         mediationBinder.Bind<InputSurfaceView>().To<InputSurfaceMediator>();

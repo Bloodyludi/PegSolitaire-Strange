@@ -13,6 +13,9 @@ class CreateBoardFieldViewsCommand : Command
     [Inject]
     public IBoardModel BoardModel { get; set; }
 
+    [Inject]
+    public IIndexConverter IndexConverter { get; set; }
+
     public override void Execute()
     {
         foreach (var fieldModel in BoardModel.CurrentBoard)
@@ -20,7 +23,7 @@ class CreateBoardFieldViewsCommand : Command
             if (fieldModel != null)
             {
                 var fieldView = Pool.GetInstance();
-                fieldView.transform.position = fieldModel.Position;
+                fieldView.transform.position = IndexConverter.IndexToPosition(fieldModel.Index);
                 fieldView.transform.parent = RootGameObject.transform;
             }
         }

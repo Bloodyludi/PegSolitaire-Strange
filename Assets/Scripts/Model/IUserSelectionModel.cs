@@ -1,7 +1,8 @@
 
 public interface IUserSelectionModel
 {
-    int selectedIndex { get; set; }
+    IFieldModel SelectedField { get; set;}
+    bool IsEmpty();
 }
 
 

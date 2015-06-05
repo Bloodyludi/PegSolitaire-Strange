@@ -50,8 +50,8 @@ public class SolitareContext : MVCSContext
         injectionBinder.Bind<IIndexConverter>().To<IndexConverter>();
 
         injectionBinder.Bind<FieldClickedSignal>().ToSingleton();
-        injectionBinder.Bind<SelectChipSignal>().ToSingleton();
-        injectionBinder.Bind<DeselectChipSignal>().ToSingleton();
+        injectionBinder.Bind<SelectedChipSignal>().ToSingleton();
+        injectionBinder.Bind<DeselectedChipSignal>().ToSingleton();
         injectionBinder.Bind<MoveChipSignal>().ToSingleton();
         injectionBinder.Bind<DestroyChipViewSignal>().ToSingleton();
         injectionBinder.Bind<MoveChipViewSignal>().ToSingleton();

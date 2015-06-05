@@ -1,5 +1,4 @@
 using strange.extensions.command.impl;
-using UnityEngine;
 
 class SwapChipPositionCommand : Command
 {
@@ -23,8 +22,3 @@ class SwapChipPositionCommand : Command
         moveChipViewSignal.Dispatch(selectionModel.SelectedField.Index, index);
     }
 }
-
-
-
-
-

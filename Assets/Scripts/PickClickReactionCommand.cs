@@ -43,7 +43,6 @@ class PickClickReactionCommand : Command
             {
                 if (rules.IsValidMove(selectionModel.SelectedField.Index, index))
                 {
-                    Debug.Log(index);
                     //Swap chips on selected with current selection
                     //Remove chip inbetween
                     moveChipSignal.Dispatch(index);

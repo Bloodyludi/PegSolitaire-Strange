@@ -8,10 +8,10 @@ public class ChipMediator : Mediator
     public ChipView view { get; set; }
 
     [Inject]
-    public SelectChipSignal selectedChipSignal { get; set; }
+    public SelectedChipSignal selectedChipSignal { get; set; }
 
     [Inject]
-    public DeselectChipSignal deselectedChipSignal { get; set; }
+    public DeselectedChipSignal deselectedChipSignal { get; set; }
 
     [Inject]
     public IIndexConverter indexConverter { get; set; }

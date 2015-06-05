@@ -4,10 +4,10 @@
 public class UserSelectionModel : IUserSelectionModel
 {
     [Inject]
-    public SelectChipSignal selectChipSignal { get; set; }
+    public SelectedChipSignal selectChipSignal { get; set; }
 
     [Inject]
-    public DeselectChipSignal deselectChipSignal { get; set; }
+    public DeselectedChipSignal deselectChipSignal { get; set; }
 
     public IFieldModel SelectedField
     {

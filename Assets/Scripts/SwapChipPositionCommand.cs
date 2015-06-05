@@ -12,10 +12,15 @@ class SwapChipPositionCommand : Command
     [Inject]
     public IBoardModel boardModel { get; set; }
 
+    [Inject]
+    public MoveChipViewSignal moveChipViewSignal { get; set; }
+
     public override void Execute()
     {
         boardModel.CurrentBoard[selectionModel.SelectedField.Index].HasChip = false;
         boardModel.CurrentBoard[index].HasChip = true;
+
+        moveChipViewSignal.Dispatch(selectionModel.SelectedField.Index, index);
     }
 }
 

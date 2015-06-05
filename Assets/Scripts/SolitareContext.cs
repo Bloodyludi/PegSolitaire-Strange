@@ -53,6 +53,8 @@ public class SolitareContext : MVCSContext
         injectionBinder.Bind<SelectChipSignal>().ToSingleton();
         injectionBinder.Bind<DeselectChipSignal>().ToSingleton();
         injectionBinder.Bind<MoveChipSignal>().ToSingleton();
+        injectionBinder.Bind<DestroyChipViewSignal>().ToSingleton();
+        injectionBinder.Bind<MoveChipViewSignal>().ToSingleton();
 
         commandBinder.Bind<StartSignal>().InSequence()
 			.To<LoadFieldLayoutCommand>()
@@ -61,7 +63,10 @@ public class SolitareContext : MVCSContext
 			.To<CreateChipViewsCommand>();
 
         commandBinder.Bind<FieldClickedSignal>().To<PickClickReactionCommand>();
-        commandBinder.Bind<MoveChipSignal>().InSequence().To<SwapChipPositionCommand>().To<DestroyChipInbetweenCommand>();
+        commandBinder.Bind<MoveChipSignal>().InSequence()
+            .To<SwapChipPositionCommand>()
+            .To<DestroyChipInbetweenCommand>()
+            .To<UpdateSelectedIndexCommand>();
 
         mediationBinder.Bind<ChipView>().To<ChipMediator>();
         mediationBinder.Bind<InputSurfaceView>().To<InputSurfaceMediator>();

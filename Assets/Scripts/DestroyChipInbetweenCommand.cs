@@ -12,12 +12,15 @@ class DestroyChipInbetweenCommand : Command
     [Inject]
     public IBoardModel boardModel { get; set; }
 
+    [Inject]
+    public DestroyChipViewSignal destroyChipViewSignal { get; set; }
 
     public override void Execute()
     {
         int indexInbetween = selectionModel.SelectedField.Index + ((index - selectionModel.SelectedField.Index) / 2);
         Debug.Log("inbetween: " + indexInbetween);
         boardModel.CurrentBoard[indexInbetween].HasChip = false;
+        destroyChipViewSignal.Dispatch(indexInbetween);
     }
 }
 

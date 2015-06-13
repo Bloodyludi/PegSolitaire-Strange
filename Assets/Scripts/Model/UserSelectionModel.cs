@@ -18,14 +18,14 @@ public class UserSelectionModel : IUserSelectionModel
         set
         {
             if (!IsEmpty())
-                deselectChipSignal.Dispatch(selectedField.Index);
+                deselectChipSignal.Dispatch(selectedField.ViewID);
 
             selectedField = value;
 
             if (!IsEmpty())
             {
-                Debug.Log(selectedField.Index);
-                selectChipSignal.Dispatch(selectedField.Index);
+                Debug.Log("Selected: " + selectedField.Index + " " + selectedField.ViewID);
+                selectChipSignal.Dispatch(selectedField.ViewID);
             }
         }
     }

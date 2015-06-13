@@ -38,34 +38,30 @@ public class ChipMediator : Mediator
         moveChipViewSignal.RemoveListener(MoveChip);
     }
 
-    public void HighlightView(int index)
+    public void HighlightView(int viewID)
     {
-        if (indexConverter.IndexToPosition(index) == (Vector2)transform.position)
+        if (viewID == gameObject.GetInstanceID())
             view.Highlight(true);
     }
 
-    public void DeselectView(int index)
+    public void DeselectView(int viewID)
     {
-        if (indexConverter.IndexToPosition(index) == (Vector2)transform.position)
+        if (viewID == gameObject.GetInstanceID())
         {
             view.Highlight(false);
             view.TriggerRestrictedAnimation();
         }
     }
 
-    public void DestroyView(int index)
+    public void DestroyView(int viewID)
     {
-        if (indexConverter.IndexToPosition(index) == (Vector2)transform.position)
-        {
+        if (viewID == gameObject.GetInstanceID())
             view.Destroy();
-        }
     }
 
-    public void MoveChip(int from, int to)
+    public void MoveChip(int viewID, int destination)
     {
-        if (indexConverter.IndexToPosition(from) == (Vector2)transform.position)
-        {
-            view.MoveToPosition(indexConverter.IndexToPosition(to));
-        }
+        if (viewID == gameObject.GetInstanceID())
+            view.MoveToPosition(indexConverter.IndexToPosition(destination));
     }
 }

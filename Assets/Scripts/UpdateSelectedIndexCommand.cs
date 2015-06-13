@@ -11,9 +11,14 @@ class UpdateSelectedIndexCommand : Command
     [Inject]
     public IBoardModel boardModel { get; set; }
 
+    [Inject]
+    public MoveChipViewSignal moveChipViewSignal { get; set; }
+
     public override void Execute()
     {
         selectionModel.SelectedField = boardModel.CurrentBoard[index];
+
+        moveChipViewSignal.Dispatch(selectionModel.SelectedField.ViewID, index);
     }
 }
 

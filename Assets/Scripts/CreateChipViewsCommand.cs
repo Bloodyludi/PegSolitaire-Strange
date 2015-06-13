@@ -27,6 +27,7 @@ class CreateChipViewsCommand : Command
 
                 chipView.transform.position = IndexConverter.IndexToPosition(fieldModel.Index);
                 chipView.transform.parent = RootGameObject.transform;
+                fieldModel.ViewID = chipView.GetInstanceID();
             }
         }
     }

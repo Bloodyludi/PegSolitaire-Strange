@@ -19,8 +19,9 @@ class DestroyChipInbetweenCommand : Command
     {
         int indexInbetween = selectionModel.SelectedField.Index + ((index - selectionModel.SelectedField.Index) / 2);
         Debug.Log("inbetween: " + indexInbetween);
-        boardModel.CurrentBoard[indexInbetween].HasChip = false;
-        destroyChipViewSignal.Dispatch(indexInbetween);
+        var fieldInbetween = boardModel.CurrentBoard[indexInbetween];
+        fieldInbetween.HasChip = false;
+        destroyChipViewSignal.Dispatch(fieldInbetween.ViewID);
     }
 }
 

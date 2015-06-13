@@ -2,6 +2,8 @@ using UnityEngine;
 
 public interface IFieldModel
 {
+    int ViewID { get; set; }
+
     int Index
     {
         get;

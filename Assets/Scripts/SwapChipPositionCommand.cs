@@ -1,4 +1,5 @@
 using strange.extensions.command.impl;
+using UnityEngine;
 
 class SwapChipPositionCommand : Command
 {
@@ -11,14 +12,15 @@ class SwapChipPositionCommand : Command
     [Inject]
     public IBoardModel boardModel { get; set; }
 
-    [Inject]
-    public MoveChipViewSignal moveChipViewSignal { get; set; }
-
     public override void Execute()
     {
-        boardModel.CurrentBoard[selectionModel.SelectedField.Index].HasChip = false;
-        boardModel.CurrentBoard[index].HasChip = true;
+        var fromField = boardModel.CurrentBoard[selectionModel.SelectedField.Index];
+        var toField = boardModel.CurrentBoard[index];
 
-        moveChipViewSignal.Dispatch(selectionModel.SelectedField.Index, index);
+        toField.ViewID = fromField.ViewID;
+        fromField.ViewID = 0;
+        
+        fromField.HasChip = false;
+        toField.HasChip = true;
     }
 }

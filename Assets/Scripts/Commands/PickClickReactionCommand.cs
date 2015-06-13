@@ -16,9 +16,6 @@ class PickClickReactionCommand : Command
     public IMovementRules rules { get; set; }
 
     [Inject]
-    public IIndexConverter converter { get; set; }
-
-    [Inject]
     public MoveChipSignal moveChipSignal { get; set; }
 
     public override void Execute()
@@ -43,8 +40,6 @@ class PickClickReactionCommand : Command
             {
                 if (rules.IsValidMove(selectionModel.SelectedField.Index, index))
                 {
-                    //Swap chips on selected with current selection
-                    //Remove chip inbetween
                     moveChipSignal.Dispatch(index);
                 }
             }

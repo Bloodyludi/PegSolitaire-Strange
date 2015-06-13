@@ -8,7 +8,7 @@ using System;
 using strange.extensions.pool.api;
 using strange.extensions.pool.impl;
 
-public class PrefabInstanceProvider : IInstanceProvider
+public class InstanceProvider : IInstanceProvider
 {
     //The GameObject instantiated from the prefab
     GameObject prototype;
@@ -20,7 +20,7 @@ public class PrefabInstanceProvider : IInstanceProvider
     //This provider is instantiated multiple times in GameContext.
     //Each time, we provide the name of the prefab we're loading from
     //a resources folder, and the layer to which the resulting instance
-    public PrefabInstanceProvider(string name)
+    public InstanceProvider(string name)
     {
         resourceName = name;
     }

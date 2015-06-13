@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 interface IMovementRules
 {
@@ -15,11 +14,11 @@ class MovementRules : IMovementRules
 
     public bool IsValidMove(int from, int to)
     {
-        var validHorizondalMove = Math.Abs(from - to) == swapDistance;
+        var validHorizontalMove = Math.Abs(from - to) == swapDistance;
 
         var validVerticalMoveUp = (from + layoutModel.BoardDimension * swapDistance) == to;
         var validVerticalMoveDown = (from - layoutModel.BoardDimension * swapDistance) == to;
 
-        return validHorizondalMove || validVerticalMoveUp || validVerticalMoveDown;
+        return validHorizontalMove || validVerticalMoveUp || validVerticalMoveDown;
     }
 }

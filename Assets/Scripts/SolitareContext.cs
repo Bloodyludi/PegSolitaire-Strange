@@ -28,7 +28,7 @@ public class SolitareContext : MVCSContext
     public override IContext Start()
     {
         base.Start();
-        var startSignal = (StartSignal)injectionBinder.GetInstance<StartSignal>();
+        var startSignal = injectionBinder.GetInstance<StartSignal>();
         startSignal.Dispatch();
         return this;
     }
@@ -36,6 +36,7 @@ public class SolitareContext : MVCSContext
     protected override void mapBindings()
     {
         base.mapBindings();
+
         injectionBinder.Bind<IPool<GameObject>>()
             .To<Pool<GameObject>>().ToSingleton().ToName(NamedInjections.FIELD_VIEW_POOL);
         injectionBinder.Bind<IPool<GameObject>>()
@@ -57,16 +58,16 @@ public class SolitareContext : MVCSContext
         injectionBinder.Bind<MoveChipViewSignal>().ToSingleton();
 
         commandBinder.Bind<StartSignal>().InSequence()
-			.To<LoadFieldLayoutCommand>()
-			.To<CreateViewRootCommand>()
-			.To<CreateBoardFieldViewsCommand>()
-			.To<CreateChipViewsCommand>();
+            .To<LoadFieldLayoutCommand>()
+            .To<CreateViewRootCommand>()
+            .To<CreateBoardFieldViewsCommand>()
+            .To<CreateChipViewsCommand>();
 
         commandBinder.Bind<FieldClickedSignal>().To<PickClickReactionCommand>();
         commandBinder.Bind<MoveChipSignal>().InSequence()
             .To<SwapChipPositionCommand>()
             .To<DestroyChipInbetweenCommand>()
-            .To<UpdateSelectedIndexCommand>();
+            .To<UpdateSelectedChipCommand>();
 
         mediationBinder.Bind<ChipView>().To<ChipMediator>();
         mediationBinder.Bind<InputSurfaceView>().To<InputSurfaceMediator>();
@@ -75,11 +76,11 @@ public class SolitareContext : MVCSContext
     protected override void postBindings()
     {
         IPool<GameObject> fieldPool = injectionBinder.GetInstance<IPool<GameObject>>(NamedInjections.FIELD_VIEW_POOL);
-        fieldPool.instanceProvider = new PrefabInstanceProvider(ResourceNames.FIELD_VIEW_PREFAB_NAME);
+        fieldPool.instanceProvider = new InstanceProvider(ResourceNames.FIELD_VIEW_PREFAB_NAME);
         fieldPool.inflationType = PoolInflationType.INCREMENT;
 
         IPool<GameObject> chipPool = injectionBinder.GetInstance<IPool<GameObject>>(NamedInjections.CHIP_VIEW_POOL);
-        chipPool.instanceProvider = new PrefabInstanceProvider(ResourceNames.CHIP_VIEW_PREFAB_NAME);
+        chipPool.instanceProvider = new InstanceProvider(ResourceNames.CHIP_VIEW_PREFAB_NAME);
         chipPool.inflationType = PoolInflationType.INCREMENT;
     }
 }

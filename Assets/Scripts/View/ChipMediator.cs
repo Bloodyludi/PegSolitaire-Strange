@@ -1,5 +1,4 @@
 using strange.extensions.mediation.impl;
-using strange.extensions.signal.impl;
 using UnityEngine;
 
 public class ChipMediator : Mediator
@@ -12,9 +11,6 @@ public class ChipMediator : Mediator
 
     [Inject]
     public DeselectedChipSignal deselectedChipSignal { get; set; }
-
-    [Inject]
-    public IIndexConverter indexConverter { get; set; }
 
     [Inject]
     public DestroyChipViewSignal destroyChipViewSignal { get; set; }
@@ -59,9 +55,9 @@ public class ChipMediator : Mediator
             view.Destroy();
     }
 
-    public void MoveChip(int viewID, int destination)
+    public void MoveChip(int viewID, Vector2 destination)
     {
         if (viewID == gameObject.GetInstanceID())
-            view.MoveToPosition(indexConverter.IndexToPosition(destination));
+            view.MoveToPosition(destination);
     }
 }

@@ -1,6 +1,6 @@
 using strange.extensions.command.impl;
 
-class UpdateSelectedIndexCommand : Command
+class UpdateSelectedChipCommand : Command
 {
     [Inject]
     public int index { get; set; }
@@ -14,11 +14,14 @@ class UpdateSelectedIndexCommand : Command
     [Inject]
     public MoveChipViewSignal moveChipViewSignal { get; set; }
 
+    [Inject]
+    public IIndexConverter indexConverter { get; set; }
+
     public override void Execute()
     {
         selectionModel.SelectedField = boardModel.CurrentBoard[index];
 
-        moveChipViewSignal.Dispatch(selectionModel.SelectedField.ViewID, index);
+        moveChipViewSignal.Dispatch(selectionModel.SelectedField.ViewID, indexConverter.IndexToPosition(index));
     }
 }
 

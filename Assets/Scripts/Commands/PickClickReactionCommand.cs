@@ -1,5 +1,4 @@
 using strange.extensions.command.impl;
-using UnityEngine;
 
 class PickClickReactionCommand : Command
 {
@@ -24,7 +23,7 @@ class PickClickReactionCommand : Command
         {
             if (boardModel.HasChipAtIndex(index))
             {
-                selectionModel.SelectedField = boardModel.CurrentBoard[index];
+                selectionModel.SelectedField = boardModel.CurrentBoard[index];  //Select new
             }
         }
         else
@@ -32,15 +31,15 @@ class PickClickReactionCommand : Command
             if (boardModel.HasChipAtIndex(index))
             {
                 if (selectionModel.SelectedField != boardModel.CurrentBoard[index])
-                    selectionModel.SelectedField = boardModel.CurrentBoard[index];
+                    selectionModel.SelectedField = boardModel.CurrentBoard[index];  //Select another
                 else
-                    selectionModel.SelectedField = null;
+                    selectionModel.SelectedField = null;    //Deselect Current
             }
             else
             {
                 if (rules.IsValidMove(selectionModel.SelectedField.Index, index))
                 {
-                    moveChipSignal.Dispatch(index);
+                    moveChipSignal.Dispatch(index);     //Do Move
                 }
             }
         }

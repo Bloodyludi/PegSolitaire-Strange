@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-
-
-public class UserSelectionModel : IUserSelectionModel
+﻿public class UserSelectionModel : IUserSelectionModel
 {
     [Inject]
     public SelectedChipSignal selectChipSignal { get; set; }
@@ -23,10 +20,7 @@ public class UserSelectionModel : IUserSelectionModel
             selectedField = value;
 
             if (!IsEmpty())
-            {
-                Debug.Log("Selected: " + selectedField.Index + " " + selectedField.ViewID);
                 selectChipSignal.Dispatch(selectedField.ViewID);
-            }
         }
     }
     IFieldModel selectedField;

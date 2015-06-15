@@ -1,5 +1,4 @@
 using strange.extensions.command.impl;
-using UnityEngine;
 
 class DestroyChipInbetweenCommand : Command
 {
@@ -17,8 +16,7 @@ class DestroyChipInbetweenCommand : Command
 
     public override void Execute()
     {
-        int indexInbetween = selectionModel.SelectedField.Index + ((index - selectionModel.SelectedField.Index) / 2);
-        Debug.Log("inbetween: " + indexInbetween);
+        var indexInbetween = selectionModel.SelectedField.Index + ((index - selectionModel.SelectedField.Index) / 2);
         var fieldInbetween = boardModel.CurrentBoard[indexInbetween];
         fieldInbetween.HasChip = false;
         destroyChipViewSignal.Dispatch(fieldInbetween.ViewID);

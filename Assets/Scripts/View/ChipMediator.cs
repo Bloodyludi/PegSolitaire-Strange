@@ -1,5 +1,6 @@
 using strange.extensions.mediation.impl;
 using UnityEngine;
+using strange.extensions.pool.api;
 
 public class ChipMediator : Mediator
 {
@@ -17,6 +18,9 @@ public class ChipMediator : Mediator
 
     [Inject]
     public MoveChipViewSignal moveChipViewSignal { get; set; }
+
+    [Inject(NamedInjections.CHIP_VIEW_POOL)]
+    public IPool<GameObject> pool { get; set; }
 
     public override void OnRegister()
     {
@@ -52,7 +56,13 @@ public class ChipMediator : Mediator
     public void DestroyView(int viewID)
     {
         if (viewID == gameObject.GetInstanceID())
-            view.Destroy();
+        {
+            view.Destroy(() => {
+                pool.ReturnInstance(gameObject);
+                gameObject.SetActive(false);
+            });
+
+        }
     }
 
     public void MoveChip(int viewID, Vector2 destination)

@@ -2,7 +2,7 @@
 
 public class SolitareBootstrap : ContextView
 {
-    void Start()
+    void Awake()
     {
         context = new SolitareContext(this);
     }

@@ -2,6 +2,7 @@ using UnityEngine;
 using strange.extensions.mediation.impl;
 using System.Collections;
 using Holoville.HOTween;
+using System;
 
 public class ChipView : View
 {
@@ -14,7 +15,7 @@ public class ChipView : View
 
     public void TriggerRestrictedAnimation()
     {
-        StartCoroutine(RestrictedAnimation(0.6f, 0.2f));
+        StartCoroutine(RestrictedAnimation(0.45f, 0.15f));
     }
 
     public void MoveToPosition(Vector3 position)
@@ -24,16 +25,12 @@ public class ChipView : View
             .Ease(EaseType.EaseInOutQuad));
     }
 
-    public void Destroy()
+    public void Destroy(Action onComplete)
     {
         HOTween.To(transform, 0.5f, new TweenParms()
             .Prop("position", new Vector3(transform.position.x, transform.position.y, -30))
             .Ease(EaseType.EaseInQuad)
-            .OnComplete(() => 
-                {
-                    gameObject.SetActive(false);
-                    transform.position = new Vector3(999, 999);
-            }));
+            .OnComplete(() => onComplete()));
     }
 
     IEnumerator RestrictedAnimation(float duration, float blinkTime)

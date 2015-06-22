@@ -42,7 +42,6 @@ public class InstanceProvider : IInstanceProvider
         {
             //Get the resource from Unity
             prototype = Resources.Load<GameObject>(resourceName);
-            prototype.transform.localScale = Vector3.one;
         }
 
         //Copy the prototype
